@@ -192,9 +192,9 @@ GizmoProfile::GizmoProfile()
    rotateScalar = 0.8f;
    scaleScalar = 0.8f;
 
-   axisColors[0].set( 255, 0, 0 );   
-   axisColors[1].set( 0, 255, 0 );   
-   axisColors[2].set( 0, 0, 255 );      
+   axisColors[0].set( 255, 0, 0 );  // x
+   axisColors[1].set( 0, 160, 0 );  // y The problem to use 0 255 0, is too yellow to notice when highlight
+   axisColors[2].set( 0, 0, 255 );  // z    
 
    activeColor.set( 237, 219, 0 );
    inActiveColor.set( 170, 170, 170 );
@@ -1427,7 +1427,7 @@ void Gizmo::renderText( const RectI &viewPort, const MatrixF &modelView, const M
 
    char axisText[] = "xyz";
 
-   F32 projLen = mProjLen * 1.05f;
+   F32 projLen = mProjLen * 1.15f; // default 1.05f letter separation of arrow tips
    if ( mProfile->mode == RotateMode )
       projLen *= 0.28f;
 
@@ -1538,7 +1538,7 @@ void Gizmo::_renderPrimaryAxis()
 
 void Gizmo::_renderAxisArrows()
 {
-   F32 tipScale = mProjLen * 0.25;
+   F32 tipScale = mProjLen * 0.35; // default 0.25 size of arrow tip
    S32 x, y, z;
    Point3F pnt;
 
@@ -1582,7 +1582,7 @@ void Gizmo::_renderAxisBoxes()
    if ( mProfile->hideDisabledAxes && !( mProfile->flags & GizmoProfile::CanScale ) )
       return;
 
-   F32 tipScale = mProjLen * 0.1;
+   F32 tipScale = mProjLen * 0.15; // default 0.1 size of "scale arrow" boxes tip
    F32 pos = mProjLen - 0.5 * tipScale;
 
    for( U32 axisIdx = 0; axisIdx < 3; ++axisIdx )
@@ -1648,9 +1648,9 @@ void Gizmo::_renderAxisCircles()
       PrimBuild::end();
    }
 
-   // Render the gizmo/sphere bounding circle...
-   {
-      F32 radius = mProjLen * 0.5f;   
+   // Render the gizmo/sphere bounding circle... // I think this  bounding circle is very annoying
+   /*{
+      F32 radius = mProjLen * 0.5f;
       U32 segments = 40;
       F32 step = mDegToRad(360.0f) / segments;
       Point3F pnt;
@@ -1696,7 +1696,7 @@ void Gizmo::_renderAxisCircles()
 
          PrimBuild::end();
       }
-   }
+   }*/
 
    // Done rendering in camera space.
    GFX->popWorldMatrix();
@@ -1707,8 +1707,8 @@ void Gizmo::_renderAxisCircles()
 
    // Render the axis-manipulation ellipses...
    {
-      F32 radius = mProjLen * 0.5f;
-      U32 segments = 40;
+      F32 radius = mProjLen * 0.6f; //default 0.5f size of circle axis
+      U32 segments = 50; //default 40 size of circle bounding box axis
       F32 step = mDegToRad(360.0f) / segments;
       U32 x,y,z;
 
