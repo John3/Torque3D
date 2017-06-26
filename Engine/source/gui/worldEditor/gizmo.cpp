@@ -1531,7 +1531,7 @@ void Gizmo::_renderPrimaryAxis()
       PrimBuild::begin( GFXLineList, 2 );    
       PrimBuild::color( color );
       PrimBuild::vertex3fv( mOrigin );
-      PrimBuild::vertex3fv( mOrigin + mProjAxisVector[i] * mProjLen );
+      PrimBuild::vertex3fv( mOrigin + mProjAxisVector[i] * mProjLen * 1.2f ); // added * 1.2f to enlarge lines for arrows
       PrimBuild::end();
    }
 }
